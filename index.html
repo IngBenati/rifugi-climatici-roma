@@ -421,15 +421,60 @@
         <span style="flex:1;">Al chiuso</span>
         <span class="layer-count" id="count-rifugi_chiuso">–</span>
         <span class="toggle" style="margin-left:8px;">
-          <input type="checkbox" id="tog-rifugi_chiuso" checked onchange="toggleLayer('rifugi_chiuso', this)">
+          <input type="checkbox" id="tog-rifugi_chiuso" checked onchange="toggleGruppo(this)">
           <span class="toggle-track"></span>
         </span>
       </div>
-      <div class="legend-row"><span class="legend-dot" style="background:#3A7CA5;">📚</span><span class="legend-label">Aule Studio</span><span class="legend-count" id="lcount-Aule Studio">–</span></div>
-      <div class="legend-row"><span class="legend-dot" style="background:#2563A6;">🏛️</span><span class="legend-label">Biblioteche</span><span class="legend-count" id="lcount-Biblioteche">–</span></div>
-      <div class="legend-row"><span class="legend-dot" style="background:#1A5276;">🤝</span><span class="legend-label">Centri Anziani (CSAQ)</span><span class="legend-count" id="lcount-Centri Anziani (CSAQ)">–</span></div>
-      <div class="legend-row"><span class="legend-dot" style="background:#4A6FA5;">🏺</span><span class="legend-label">Musei Gratuiti Residenti</span><span class="legend-count" id="lcount-Musei Gratuiti Residenti">–</span></div>
-      <div class="legend-row"><span class="legend-dot" style="background:#5B84B1;">🎭</span><span class="legend-label">Centri Culturali e Poli Civici</span><span class="legend-count" id="lcount-Centri Culturali e Poli Civici">–</span></div>
+
+      <label class="layer-row active" id="row-tipo-AuleStudio">
+        <span class="legend-dot" style="background:#3A7CA5;">📚</span>
+        <span class="layer-name">Aule Studio</span>
+        <span class="layer-count" id="lcount-Aule Studio">–</span>
+        <span class="toggle">
+          <input type="checkbox" id="tog-tipo-AuleStudio" checked onchange="toggleTipo('Aule Studio', this)">
+          <span class="toggle-track"></span>
+        </span>
+      </label>
+
+      <label class="layer-row active" id="row-tipo-Biblioteche">
+        <span class="legend-dot" style="background:#2563A6;">🏛️</span>
+        <span class="layer-name">Biblioteche</span>
+        <span class="layer-count" id="lcount-Biblioteche">–</span>
+        <span class="toggle">
+          <input type="checkbox" id="tog-tipo-Biblioteche" checked onchange="toggleTipo('Biblioteche', this)">
+          <span class="toggle-track"></span>
+        </span>
+      </label>
+
+      <label class="layer-row active" id="row-tipo-CentriAnziani">
+        <span class="legend-dot" style="background:#1A5276;">🤝</span>
+        <span class="layer-name">Centri Anziani (CSAQ)</span>
+        <span class="layer-count" id="lcount-Centri Anziani (CSAQ)">–</span>
+        <span class="toggle">
+          <input type="checkbox" id="tog-tipo-CentriAnziani" checked onchange="toggleTipo('Centri Anziani (CSAQ)', this)">
+          <span class="toggle-track"></span>
+        </span>
+      </label>
+
+      <label class="layer-row active" id="row-tipo-Musei">
+        <span class="legend-dot" style="background:#4A6FA5;">🏺</span>
+        <span class="layer-name">Musei Gratuiti Residenti</span>
+        <span class="layer-count" id="lcount-Musei Gratuiti Residenti">–</span>
+        <span class="toggle">
+          <input type="checkbox" id="tog-tipo-Musei" checked onchange="toggleTipo('Musei Gratuiti Residenti', this)">
+          <span class="toggle-track"></span>
+        </span>
+      </label>
+
+      <label class="layer-row active" id="row-tipo-CentriCulturali">
+        <span class="legend-dot" style="background:#5B84B1;">🎭</span>
+        <span class="layer-name">Centri Culturali e Poli Civici</span>
+        <span class="layer-count" id="lcount-Centri Culturali e Poli Civici">–</span>
+        <span class="toggle">
+          <input type="checkbox" id="tog-tipo-CentriCulturali" checked onchange="toggleTipo('Centri Culturali e Poli Civici', this)">
+          <span class="toggle-track"></span>
+        </span>
+      </label>
     </div>
 
     <!-- ALL'APERTO -->
@@ -771,10 +816,10 @@ async function loadLayer(id) {
 }
 
 // ── CARICAMENTO LAYER AL CHIUSO (file unico, marker per Tipo) ─────
-async function loadRifugiChiuso() {
-  const group = L.layerGroup();
-  const subtotals = {};
+const gruppoChiuso = L.layerGroup();
+const markersByTipo = {};
 
+async function loadRifugiChiuso() {
   try {
     const resp = await fetch('rifugi_chiuso.geojson');
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
@@ -801,20 +846,18 @@ async function loadRifugiChiuso() {
 
       const marker = L.marker([lat, lon], { icon })
         .bindPopup(buildPopup(p), { maxWidth: 320 });
-      group.addLayer(marker);
-      total++;
 
-      // contatore per sottotipo
-      subtotals[tipo] = (subtotals[tipo] || 0) + 1;
+      if (!markersByTipo[tipo]) markersByTipo[tipo] = [];
+      markersByTipo[tipo].push(marker);
+      gruppoChiuso.addLayer(marker);
+      total++;
     });
 
-    // aggiorna contatore totale
     document.getElementById('count-rifugi_chiuso').textContent = total;
 
-    // aggiorna contatori legenda sottotipi
-    Object.entries(subtotals).forEach(([tipo, n]) => {
+    Object.entries(markersByTipo).forEach(([tipo, markers]) => {
       const el = document.getElementById('lcount-' + tipo);
-      if (el) el.textContent = n;
+      if (el) el.textContent = markers.length;
     });
 
   } catch (e) {
@@ -822,19 +865,62 @@ async function loadRifugiChiuso() {
     console.warn('Layer rifugi_chiuso non caricato:', e.message);
   }
 
-  layers['rifugi_chiuso'] = group;
-  group.addTo(map);
+  gruppoChiuso.addTo(map);
 }
 
-// ── TOGGLE ────────────────────────────────────────────────────────
+// ── TOGGLE LAYER SEMPLICI ─────────────────────────────────────────
 function toggleLayer(id, checkbox) {
-  const row = document.getElementById(`row-${id}`);
+  const row = document.getElementById('row-' + id);
   if (checkbox.checked) {
     if (layers[id]) map.addLayer(layers[id]);
     if (row) row.classList.add('active');
   } else {
     if (layers[id]) map.removeLayer(layers[id]);
     if (row) row.classList.remove('active');
+  }
+}
+
+// ── TOGGLE GRUPPO AL CHIUSO ───────────────────────────────────────
+const TIPI_CHIUSO = [
+  { tipo: 'Aule Studio',                    togId: 'tog-tipo-AuleStudio',      rowId: 'row-tipo-AuleStudio' },
+  { tipo: 'Biblioteche',                    togId: 'tog-tipo-Biblioteche',     rowId: 'row-tipo-Biblioteche' },
+  { tipo: 'Centri Anziani (CSAQ)',           togId: 'tog-tipo-CentriAnziani',   rowId: 'row-tipo-CentriAnziani' },
+  { tipo: 'Musei Gratuiti Residenti',       togId: 'tog-tipo-Musei',           rowId: 'row-tipo-Musei' },
+  { tipo: 'Centri Culturali e Poli Civici', togId: 'tog-tipo-CentriCulturali', rowId: 'row-tipo-CentriCulturali' },
+];
+
+function toggleGruppo(checkbox) {
+  const acceso = checkbox.checked;
+  TIPI_CHIUSO.forEach(({ tipo, togId, rowId }) => {
+    if (markersByTipo[tipo]) {
+      markersByTipo[tipo].forEach(m => acceso ? gruppoChiuso.addLayer(m) : gruppoChiuso.removeLayer(m));
+    }
+    const tog = document.getElementById(togId);
+    const row = document.getElementById(rowId);
+    if (tog) tog.checked = acceso;
+    if (row) acceso ? row.classList.add('active') : row.classList.remove('active');
+  });
+}
+
+// ── TOGGLE SINGOLO SOTTOTIPO ──────────────────────────────────────
+function toggleTipo(tipo, checkbox) {
+  const acceso = checkbox.checked;
+  const cfg = TIPI_CHIUSO.find(t => t.tipo === tipo);
+  if (markersByTipo[tipo]) {
+    markersByTipo[tipo].forEach(m => acceso ? gruppoChiuso.addLayer(m) : gruppoChiuso.removeLayer(m));
+  }
+  if (cfg) {
+    const row = document.getElementById(cfg.rowId);
+    if (row) acceso ? row.classList.add('active') : row.classList.remove('active');
+  }
+  // sincronizza toggle gruppo
+  const togGruppo = document.getElementById('tog-rifugi_chiuso');
+  if (togGruppo) {
+    const tuttiSpenti = TIPI_CHIUSO.every(({ togId }) => {
+      const el = document.getElementById(togId);
+      return el && !el.checked;
+    });
+    togGruppo.checked = !tuttiSpenti;
   }
 }
 
