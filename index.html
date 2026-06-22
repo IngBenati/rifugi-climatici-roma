@@ -395,13 +395,14 @@
     background: transparent;
     border: none;
     box-shadow: none;
-    font-size: 9px;
+    font-size: 10px;
     font-weight: 700;
-    color: #333;
+    color: #222;
     text-transform: uppercase;
     letter-spacing: 0.04em;
     white-space: nowrap;
     pointer-events: none;
+    text-shadow: -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white, 1px 1px 2px white, 0 0 4px white;
   }
 
   .municipio-label::before { display: none; }
@@ -424,7 +425,7 @@
 <!-- HEADER -->
 <header>
   <span class="header-badge">Piano Caldo</span>
-  <h1>Rifugi Climatici – Roma</h1>
+  <h1>Rifugi Climatici – Ufficio Clima di Roma Capitale</h1>
   <span class="header-sub">Roma Capitale · Ufficio Clima</span>
 </header>
 
@@ -437,31 +438,17 @@
     <div class="sidebar-section cat-chiuso">
       <div class="cat-header" style="margin-bottom:8px;">
         <span style="flex:1;">Al chiuso</span>
-        <span class="layer-count" id="count-rifugi_chiuso">–</span>
+        <span class="layer-count" id="count-gruppo-chiuso">–</span>
       </div>
 
-      <label class="layer-row active" id="row-tipo-AuleStudio">
-        <span class="legend-dot" style="background:#3A7CA5;">📚</span>
-        <span class="layer-name">Aule Studio</span>
-        <span class="layer-count" id="lcount-Aule Studio">–</span>
-        <span class="toggle">
-          <input type="checkbox" id="tog-tipo-AuleStudio" checked onchange="toggleTipo('Aule Studio', this)">
-          <span class="toggle-track"></span>
-        </span>
-      </label>
-
-      <label class="layer-row active" id="row-tipo-Biblioteche">
-        <span class="legend-dot" style="background:#2563A6;">🏛️</span>
-        <span class="layer-name">Biblioteche</span>
-        <span class="layer-count" id="lcount-Biblioteche">–</span>
-        <span class="toggle">
-          <input type="checkbox" id="tog-tipo-Biblioteche" checked onchange="toggleTipo('Biblioteche', this)">
-          <span class="toggle-track"></span>
-        </span>
-      </label>
-
       <label class="layer-row active" id="row-tipo-CentriAnziani">
-        <span class="legend-dot" style="background:#1A5276;">🤝</span>
+        <span class="layer-icon svg-icon" style="background:#1A5276;">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14">
+            <circle cx="10" cy="7" r="3.5" stroke="white" stroke-width="1.5"/>
+            <path d="M3 17c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M7 13.5c0 0 1-1 3-1s3 1 3 1" stroke="white" stroke-width="1" stroke-linecap="round"/>
+          </svg>
+        </span>
         <span class="layer-name">Centri Anziani (CSAQ)</span>
         <span class="layer-count" id="lcount-Centri Anziani (CSAQ)">–</span>
         <span class="toggle">
@@ -470,8 +457,47 @@
         </span>
       </label>
 
+      <label class="layer-row active" id="row-tipo-Biblioteche">
+        <span class="layer-icon svg-icon" style="background:#2563A6;">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14">
+            <rect x="3" y="4" width="4" height="13" rx="0.5" stroke="white" stroke-width="1.5"/>
+            <rect x="8" y="4" width="4" height="13" rx="0.5" stroke="white" stroke-width="1.5"/>
+            <path d="M13 5l3.5 12" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="layer-name">Biblioteche</span>
+        <span class="layer-count" id="lcount-Biblioteche">–</span>
+        <span class="toggle">
+          <input type="checkbox" id="tog-tipo-Biblioteche" checked onchange="toggleTipo('Biblioteche', this)">
+          <span class="toggle-track"></span>
+        </span>
+      </label>
+
+      <label class="layer-row active" id="row-tipo-AuleStudio">
+        <span class="layer-icon svg-icon" style="background:#3A7CA5;">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14">
+            <path d="M4 5h12M4 8h8M4 11h10M4 14h6" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M15 11l2 2-2 2" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="layer-name">Aule Studio</span>
+        <span class="layer-count" id="lcount-Aule Studio">–</span>
+        <span class="toggle">
+          <input type="checkbox" id="tog-tipo-AuleStudio" checked onchange="toggleTipo('Aule Studio', this)">
+          <span class="toggle-track"></span>
+        </span>
+      </label>
+
       <label class="layer-row active" id="row-tipo-Musei">
-        <span class="legend-dot" style="background:#4A6FA5;">🏺</span>
+        <span class="layer-icon svg-icon" style="background:#4A6FA5;">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14">
+            <path d="M10 3L2 7h16L10 3z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+            <rect x="3" y="7" width="2" height="8" fill="white"/>
+            <rect x="9" y="7" width="2" height="8" fill="white"/>
+            <rect x="15" y="7" width="2" height="8" fill="white"/>
+            <rect x="2" y="15" width="16" height="1.5" rx="0.5" fill="white"/>
+          </svg>
+        </span>
         <span class="layer-name">Musei Gratuiti Residenti</span>
         <span class="layer-count" id="lcount-Musei Gratuiti Residenti">–</span>
         <span class="toggle">
@@ -481,7 +507,12 @@
       </label>
 
       <label class="layer-row active" id="row-tipo-CentriCulturali">
-        <span class="legend-dot" style="background:#5B84B1;">🎭</span>
+        <span class="layer-icon svg-icon" style="background:#5B84B1;">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14">
+            <circle cx="10" cy="10" r="7" stroke="white" stroke-width="1.5"/>
+            <path d="M8 7l5 3-5 3V7z" fill="white"/>
+          </svg>
+        </span>
         <span class="layer-name">Centri Culturali e Poli Civici</span>
         <span class="layer-count" id="lcount-Centri Culturali e Poli Civici">–</span>
         <span class="toggle">
@@ -493,10 +524,17 @@
 
     <!-- ALL'APERTO -->
     <div class="sidebar-section cat-aperto">
-      <div class="cat-header">All'aperto</div>
+      <div class="cat-header" style="margin-bottom:8px;">
+        <span style="flex:1;">All'aperto</span>
+        <span class="layer-count" id="count-gruppo-aperto">–</span>
+      </div>
 
       <label class="layer-row active" id="row-parchi_pubblici">
-        <span class="layer-icon" style="background:#EBF5EF;">🌳</span>
+        <span class="layer-icon svg-icon" style="background:#4E9E6A;">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14">
+            <path d="M10 3C7 3 5 5.5 5 8c0 2 1.5 3.5 3 4.5V17h4v-4.5c1.5-1 3-2.5 3-4.5 0-2.5-2-5-5-5z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+        </span>
         <span class="layer-name">Parchi Pubblici<br><small style="font-weight:400;color:var(--text-muted);">indice di raffrescamento</small></span>
         <span class="layer-count" id="count-parchi_pubblici">–</span>
         <span class="toggle">
@@ -506,7 +544,12 @@
       </label>
 
       <label class="layer-row active" id="row-parchi_affaccio">
-        <span class="layer-icon" style="background:#EBF5EF;">🌊</span>
+        <span class="layer-icon svg-icon" style="background:#2E7D52;">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14">
+            <path d="M10 3C7 3 5 5.5 5 8c0 2 1.5 3.5 3 4.5V13h4v-0.5c1.5-1 3-2.5 3-4.5 0-2.5-2-5-5-5z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M3 16c2-2 4-1 5 0s3 2 5 0 4-2 4 0" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
         <span class="layer-name">Parchi di Affaccio<br><small style="font-weight:400;color:var(--text-muted);">indice di raffrescamento</small></span>
         <span class="layer-count" id="count-parchi_affaccio">–</span>
         <span class="toggle">
@@ -516,8 +559,8 @@
       </label>
 
       <!-- Legenda YlGnBu -->
-      <div style="margin:8px 0 12px;">
-        <div style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px;">Indice di raffrescamento</div>
+      <div style="margin:4px 0 10px;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;">Indice di raffrescamento</div>
         <div style="display:flex;height:10px;border-radius:3px;overflow:hidden;margin-bottom:3px;">
           <div style="flex:1;background:#ffffd9;"></div>
           <div style="flex:1;background:#edf8b1;"></div>
@@ -535,7 +578,14 @@
       </div>
 
       <label class="layer-row active" id="row-spiagge">
-        <span class="layer-icon" style="background:#EBF5EF;">🏖️</span>
+        <span class="layer-icon svg-icon" style="background:#27AE60;">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14">
+            <path d="M2 14c2-3 5-3 7 0s5 3 7 0" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M2 17c2-2 5-2 7 0s5 2 7 0" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+            <circle cx="14" cy="6" r="2.5" stroke="white" stroke-width="1.5"/>
+            <path d="M6 10V6M6 6C6 6 8 5 9 6" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
         <span class="layer-name">Spiagge libere</span>
         <span class="layer-count" id="count-spiagge">–</span>
         <span class="toggle">
@@ -543,25 +593,20 @@
           <span class="toggle-track"></span>
         </span>
       </label>
-
-      <label class="layer-row active" id="row-piscine">
-        <span class="layer-icon" style="background:#EBF5EF;">🏊</span>
-        <span class="layer-name">Piscine gratuite over 70</span>
-        <span class="layer-count" id="count-piscine">–</span>
-        <span class="toggle">
-          <input type="checkbox" id="tog-piscine" checked onchange="toggleLayer('piscine', this)">
-          <span class="toggle-track"></span>
-        </span>
-      </label>
-
     </div>
 
     <!-- SFD -->
     <div class="sidebar-section cat-sfd">
-      <div class="cat-header">Strutture per persone senza fissa dimora</div>
+      <div class="cat-header">Rifugi per persone senza fissa dimora</div>
 
       <label class="layer-row active" id="row-sfd">
-        <span class="layer-icon" style="background:#F3EEF8;">🏠</span>
+        <span class="layer-icon svg-icon" style="background:#8C5FA8;">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14">
+            <path d="M3 10L10 4l7 6" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M5 9v8h10V9" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+            <rect x="8" y="13" width="4" height="4" rx="0.5" stroke="white" stroke-width="1.2"/>
+          </svg>
+        </span>
         <span class="layer-name">Strutture per persone senza fissa dimora</span>
         <span class="layer-count" id="count-sfd">–</span>
         <span class="toggle">
@@ -576,7 +621,13 @@
       <div class="cat-header">Infrastrutture rinfrescanti</div>
 
       <label class="layer-row active" id="row-casette_acqua">
-        <span class="layer-icon" style="background:#EAF5F7;">💧</span>
+        <span class="layer-icon svg-icon" style="background:#2196A6;">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14">
+            <rect x="5" y="4" width="10" height="10" rx="1.5" stroke="white" stroke-width="1.5"/>
+            <path d="M8 14v3M12 14v3" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M7 8.5c0 0 1.5-2 3 0s3 0 3 0" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </span>
         <span class="layer-name">Casette dell'acqua</span>
         <span class="layer-count" id="count-casette_acqua">–</span>
         <span class="toggle">
@@ -586,24 +637,50 @@
       </label>
 
       <label class="layer-row active" id="row-fontanelle">
-        <span class="layer-icon" style="background:#EAF5F7;">⛲</span>
-        <span class="layer-name">Fontanelle</span>
+        <span class="layer-icon svg-icon" style="background:#0E86A0;">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14">
+            <path d="M10 4v8" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M7 7c0 0 1.5-2 3 0" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M6 12h8" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M8 12c0 2-1 3-1 3h6s-1-1-1-3" stroke="white" stroke-width="1.2" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="layer-name">Fontanelle pubbliche</span>
         <span class="layer-count" id="count-fontanelle">–</span>
         <span class="toggle">
           <input type="checkbox" id="tog-fontanelle" checked onchange="toggleLayer('fontanelle', this)">
           <span class="toggle-track"></span>
         </span>
       </label>
+
+      <label class="layer-row active" id="row-piscine">
+        <span class="layer-icon svg-icon" style="background:#1ABC9C;">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14">
+            <path d="M3 12c2-3 5-3 7 0s5 3 7 0" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M3 15c2-2 5-2 7 0s5 2 7 0" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+            <circle cx="13" cy="5.5" r="1.5" stroke="white" stroke-width="1.2"/>
+            <path d="M13 7v4M10 9h3" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="layer-name">Piscine over 70</span>
+        <span class="layer-count" id="count-piscine">–</span>
+        <span class="toggle">
+          <input type="checkbox" id="tog-piscine" checked onchange="toggleLayer('piscine', this)">
+          <span class="toggle-track"></span>
+        </span>
+      </label>
     </div>
 
     <!-- CONFINI -->
-    <div class="sidebar-section" style="--c-confini:#333;">
-      <div class="cat-header" style="margin-bottom:8px;--c-current:#333;">
-        <span style="flex:1;">Confini amministrativi</span>
-      </div>
+    <div class="sidebar-section">
+      <div class="cat-header">Confini amministrativi</div>
 
       <label class="layer-row active" id="row-comune">
-        <span class="layer-icon" style="background:#F0F0F0;">🗺️</span>
+        <span class="layer-icon svg-icon" style="background:#555;">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14">
+            <rect x="3" y="3" width="14" height="14" rx="1" stroke="white" stroke-width="1.5" stroke-dasharray="3 2"/>
+          </svg>
+        </span>
         <span class="layer-name">Comune di Roma</span>
         <span class="layer-count" id="count-comune">–</span>
         <span class="toggle">
@@ -613,7 +690,13 @@
       </label>
 
       <label class="layer-row active" id="row-municipi">
-        <span class="layer-icon" style="background:#F0F0F0;">📍</span>
+        <span class="layer-icon svg-icon" style="background:#777;">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14">
+            <rect x="3" y="3" width="14" height="14" rx="1" stroke="white" stroke-width="1" stroke-dasharray="2 2"/>
+            <line x1="10" y1="3" x2="10" y2="17" stroke="white" stroke-width="0.8" stroke-dasharray="2 2"/>
+            <line x1="3" y1="10" x2="17" y2="10" stroke="white" stroke-width="0.8" stroke-dasharray="2 2"/>
+          </svg>
+        </span>
         <span class="layer-name">Municipi</span>
         <span class="layer-count" id="count-municipi">–</span>
         <span class="toggle">
@@ -805,73 +888,109 @@ function acBadge(v) {
   return `<span class="badge-ac badge-nd">${s}</span>`;
 }
 
+// Mappa icone e label per i campi del popup
+const CAMPO_CONFIG = [
+  { key: 'Indirizzo',          icon: '📍', label: 'Indirizzo',          special: 'indirizzo' },
+  { key: 'Orari',              icon: '🕐', label: 'Orari' },
+  { key: 'Chiusura_estiva',    icon: '📅', label: 'Chiusura estiva' },
+  { key: 'Aria_cond',          icon: '❄️', label: 'Aria condizionata',  special: 'ac' },
+  { key: 'Accessibilita',      icon: '♿', label: 'Accessibilità' },
+  { key: 'Wifi',               icon: 'ℹ️', label: 'Wi-Fi' },
+  { key: 'Sedute_dentro',      icon: 'ℹ️', label: 'Sedute interne' },
+  { key: 'Sedute_fuori',       icon: 'ℹ️', label: 'Sedute esterne' },
+  { key: 'Servizi_aggiuntivi', icon: 'ℹ️', label: 'Servizi aggiuntivi' },
+  { key: 'Proprieta',          icon: 'ℹ️', label: 'Proprietà' },
+  { key: 'Telefono',           icon: '📞', label: 'Telefono',           special: 'tel' },
+  { key: 'Email',              icon: '✉️', label: 'Email',              special: 'email' },
+  { key: 'Email2',             icon: '✉️', label: 'Email 2',            special: 'email' },
+];
+
 function buildPopup(p) {
   const rows = [];
 
-  if (val(p.Indirizzo)) rows.push(`
+  // Intestazione con Tipo e Nome
+  const titoloTipo = val(p.Tipo) || 'Rifugio climatico';
+  const titoloNome = val(p.Nome) || '–';
+
+  // Indirizzo + Municipio insieme
+  if (val(p.Indirizzo)) {
+    rows.push(`
     <div class="popup-row">
       <span class="popup-icon">📍</span>
       <div><span class="popup-label">Indirizzo</span><br>
       <span class="popup-val">${val(p.Indirizzo)}${val(p.Municipio) ? ' <span style="color:var(--text-muted)">· Mun. '+val(p.Municipio)+'</span>' : ''}</span></div>
     </div>`);
-
-  if (val(p.Orari)) rows.push(`
+  } else if (val(p.Municipio)) {
+    rows.push(`
     <div class="popup-row">
-      <span class="popup-icon">🕐</span>
-      <div><span class="popup-label">Orari</span><br>
-      <span class="popup-val">${val(p.Orari)}</span></div>
+      <span class="popup-icon">📍</span>
+      <div><span class="popup-label">Municipio</span><br>
+      <span class="popup-val">${val(p.Municipio)}</span></div>
     </div>`);
+  }
 
-  if (val(p.Chiusura_estiva)) rows.push(`
+  // Tutti gli altri campi in ordine
+  const skipKeys = new Set(['Tipo','Nome','Indirizzo','Municipio','lat','lon','GoogleMaps','Sito_Web','Email','Email2','Telefono']);
+  const orderedKeys = ['Orari','Chiusura_estiva','Aria_cond','Accessibilita','Wifi','Sedute_dentro','Sedute_fuori','Servizi_aggiuntivi','Proprieta'];
+  const iconMap = { Orari:'🕐', Chiusura_estiva:'📅', Aria_cond:'❄️', Accessibilita:'♿', Wifi:'ℹ️', Sedute_dentro:'🪑', Sedute_fuori:'🪑', Servizi_aggiuntivi:'ℹ️', Proprieta:'🏛️' };
+  const labelMap = { Orari:'Orari', Chiusura_estiva:'Chiusura estiva', Aria_cond:'Aria condizionata', Accessibilita:'Accessibilità', Wifi:'Wi-Fi', Sedute_dentro:'Sedute interne', Sedute_fuori:'Sedute esterne', Servizi_aggiuntivi:'Servizi aggiuntivi', Proprieta:'Proprietà' };
+
+  orderedKeys.forEach(key => {
+    const v = val(p[key]);
+    if (!v) return;
+    if (key === 'Aria_cond') {
+      rows.push(`
     <div class="popup-row">
-      <span class="popup-icon">📅</span>
-      <div><span class="popup-label">Chiusura estiva</span><br>
-      <span class="popup-val">${val(p.Chiusura_estiva)}</span></div>
+      <span class="popup-icon">${iconMap[key]}</span>
+      <div><span class="popup-label">${labelMap[key]}</span><br>${acBadge(v)}</div>
     </div>`);
-
-  if (val(p.Aria_cond)) rows.push(`
+    } else if (key === 'Wifi' && v.toUpperCase() === 'NO') {
+      return; // nasconde Wi-Fi: NO
+    } else {
+      rows.push(`
     <div class="popup-row">
-      <span class="popup-icon">❄️</span>
-      <div><span class="popup-label">Aria condizionata</span><br>
-      ${acBadge(p.Aria_cond)}</div>
+      <span class="popup-icon">${iconMap[key]}</span>
+      <div><span class="popup-label">${labelMap[key]}</span><br>
+      <span class="popup-val">${v}</span></div>
     </div>`);
+    }
+  });
 
-  if (val(p.Accessibilita)) rows.push(`
-    <div class="popup-row">
-      <span class="popup-icon">♿</span>
-      <div><span class="popup-label">Accessibilità</span><br>
-      <span class="popup-val">${val(p.Accessibilita)}</span></div>
-    </div>`);
-
-  const extras = [];
-  if (val(p.Wifi) && p.Wifi.toUpperCase() !== 'NO') extras.push('Wi-Fi');
-  if (val(p.Sedute_dentro)) extras.push(`Sedute interne: ${val(p.Sedute_dentro)}`);
-  if (val(p.Sedute_fuori)) extras.push(`Sedute esterne: ${val(p.Sedute_fuori)}`);
-  if (val(p.Servizi_aggiuntivi)) extras.push(val(p.Servizi_aggiuntivi));
-  if (extras.length) rows.push(`
+  // Campi extra non in lista (qualsiasi campo non nullo non ancora mostrato)
+  const shownKeys = new Set([...skipKeys, ...orderedKeys]);
+  Object.keys(p).forEach(key => {
+    if (shownKeys.has(key)) return;
+    const v = val(p[key]);
+    if (!v) return;
+    rows.push(`
     <div class="popup-row">
       <span class="popup-icon">ℹ️</span>
-      <div><span class="popup-label">Servizi</span><br>
-      <span class="popup-val">${extras.join(' · ')}</span></div>
+      <div><span class="popup-label">${key}</span><br>
+      <span class="popup-val">${v}</span></div>
     </div>`);
+  });
 
-  if (val(p.Telefono)) rows.push(`
+  // Telefono
+  if (val(p.Telefono)) {
+    rows.push(`
     <div class="popup-row">
       <span class="popup-icon">📞</span>
       <div><span class="popup-label">Telefono</span><br>
       <span class="popup-val"><a href="tel:${val(p.Telefono)}" class="popup-link">${val(p.Telefono)}</a></span></div>
     </div>`);
+  }
 
+  // Footer link
   const footer = [];
   if (val(p.GoogleMaps)) footer.push(`<a href="${val(p.GoogleMaps)}" target="_blank" class="popup-link">📍 Google Maps</a>`);
-  if (val(p.Sito_Web))   footer.push(`<a href="${val(p.Sito_Web)}"   target="_blank" class="popup-link">🌐 Sito web</a>`);
+  if (val(p.Sito_Web))   footer.push(`<a href="${val(p.Sito_Web)}" target="_blank" class="popup-link">🌐 Sito web</a>`);
   const email = val(p.Email) || val(p.Email2);
   if (email) footer.push(`<a href="mailto:${email}" class="popup-link">✉️ Email</a>`);
 
   return `
     <div class="popup-header">
-      <div class="popup-tipo">${val(p.Tipo) || 'Rifugio climatico'}</div>
-      <div class="popup-nome">${val(p.Nome) || '–'}</div>
+      <div class="popup-tipo">${titoloTipo}</div>
+      <div class="popup-nome">${titoloNome}</div>
     </div>
     <div class="popup-body">${rows.join('')}</div>
     ${footer.length ? `<div class="popup-footer">${footer.join('')}</div>` : ''}
@@ -1110,8 +1229,8 @@ function togglePolyLayer(id, checkbox) {
 const confineLayers = {};
 
 const CONFINE_CONFIG = {
-  comune:   { file: 'Comune.geojson',   color: '#111', weight: 2,   dash: null,  label: 'Comune' },
-  municipi: { file: 'Municipi.geojson', color: '#444', weight: 1,   dash: '4 3', label: 'Municipio' },
+  comune:   { file: 'Comune.geojson',   color: '#111', weight: 0.8, dash: null,  label: 'Comune' },
+  municipi: { file: 'Municipi.geojson', color: '#444', weight: 0.5, dash: '4 3', label: 'Municipio' },
 };
 
 async function loadConfine(id) {
@@ -1183,6 +1302,21 @@ async function init() {
     ...Object.keys(CONFINE_CONFIG).map(id => loadConfine(id)),
   ];
   await Promise.allSettled(promises);
+
+  // Contatore totale gruppo ALL'APERTO
+  // Somma parchi pubblici + parchi affaccio + spiagge (layer puntuali e poligonali)
+  const idsAperto = ['parchi_pubblici', 'parchi_affaccio', 'spiagge'];
+  let totAperto = 0;
+  idsAperto.forEach(id => {
+    const el = document.getElementById('count-' + id);
+    if (el) {
+      const n = parseInt(el.textContent);
+      if (!isNaN(n)) totAperto += n;
+    }
+  });
+  const elAperto = document.getElementById('count-gruppo-aperto');
+  if (elAperto) elAperto.textContent = totAperto > 0 ? totAperto : '–';
+
   document.getElementById('loading').style.display = 'none';
 }
 
